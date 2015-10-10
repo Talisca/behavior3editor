@@ -26,7 +26,17 @@
     this.history = new b3e.project.HistoryManager(this._editor, this);
 
     this.nodes.add(b3e.Root, true);
-    this.nodes.add(b3.Sequence, true);
+	for(var name in b3)
+	{
+		var cls = b3[name];
+		if(typeof cls === "function")
+		{
+			var proto = cls.prototype;
+			if(typeof proto.category === "string" && cls !== b3.Action && cls !== b3.Condition && cls !== b3.Composite && cls !== b3.Decorator)
+				this.nodes.add(cls, true);
+		}
+	}
+    /*this.nodes.add(b3.Sequence, true);
     this.nodes.add(b3.Priority, true);
     this.nodes.add(b3.MemSequence, true);
     this.nodes.add(b3.MemPriority, true);
@@ -40,7 +50,7 @@
     this.nodes.add(b3.Succeeder, true);
     this.nodes.add(b3.Runner, true);
     this.nodes.add(b3.Error, true);
-    this.nodes.add(b3.Wait, true);
+    this.nodes.add(b3.Wait, true);*/
 
     this._applySettings(this._editor._settings);
     this.history.clear();
