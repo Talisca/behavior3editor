@@ -134,6 +134,35 @@
     return text;
   };
 
+  b3e.draw.parallelSymbol = function (block, settings) {
+      var shape = new createjs.Shape();
+
+      var w = block._width;
+      var h = block._height;
+      var swidth = h / 20;
+      var ssize = h / 4;
+      var scolor = settings.get('block_symbol_color');
+
+      shape.graphics.setStrokeStyle(swidth, 'round');
+      shape.graphics.beginStroke(scolor);
+      shape.graphics.beginFill(scolor);
+      shape.graphics.moveTo(-ssize, -2 * ssize / 3);
+      shape.graphics.lineTo(ssize, -2 * ssize / 3);
+      shape.graphics.drawPolyStar(ssize / 2, -2 * ssize / 3, ssize / 2, 3, 0, 0);
+      shape.graphics.endFill();
+      shape.graphics.endStroke();
+
+      shape.graphics.setStrokeStyle(swidth, 'round');
+      shape.graphics.beginStroke(scolor);
+      shape.graphics.beginFill(scolor);
+      shape.graphics.moveTo(-ssize, 2 * ssize / 3);
+      shape.graphics.lineTo(ssize, 2 * ssize / 3);
+      shape.graphics.drawPolyStar(ssize / 2, 2 * ssize / 3, ssize / 2, 3, 0, 0);
+      shape.graphics.endFill();
+      shape.graphics.endStroke();
+
+      return shape;
+  };
 
   b3e.draw.SYMBOLS = {
     'Root'        : b3e.draw.rootSymbol,
@@ -141,6 +170,7 @@
     'Priority'    : b3e.draw.prioritySymbol,
     'MemSequence' : b3e.draw.memsequenceSymbol,
     'MemPriority' : b3e.draw.memprioritySymbol,
+	"Parallel"    : b3e.draw.parallelSymbol,
   };
 
 }());
